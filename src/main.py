@@ -23,6 +23,9 @@ db.init_app(app)
 CORS(app)
 setup_admin(app)
 
+app.config['JWT_SECRET_KEY'] = 'super-secret'  # Change this!
+jwt = JWTManager(app)
+
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
@@ -35,7 +38,8 @@ def sitemap():
 
 @app.route('/user', methods=['GET'])
 def handle_hello():
-
+    table = User.query.all()
+    
     response_body = {
         "msg": "Hello, this is your GET /user response "
     }
