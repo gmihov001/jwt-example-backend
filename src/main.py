@@ -9,7 +9,10 @@ from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import db, User
-#from models import Person
+from flask_jwt_simple import (
+    JWTManager, jwt_required, create_jwt, get_jwt_identity
+)
+#install flask-jwt-simple for import to work
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
