@@ -45,7 +45,14 @@ def handle_hello():
 @app.route('/user', methods=['POST'])
 def post_user():
     body = request.json
-    new_user = User(username=body['username'], email=body['email'], password=['password'], is_active=False)    
+    new_user = User(username=body['username'], email=body['email'], password=body['password'], is_active=False)    
+    db.session.add(new_user)
+    db.session.commit()
+    added = User.query.filter_by(email=body['email'])
+    if added:
+        return jsonify(f'User {body['username']} was created'), 200
+    else:
+        return jsonify('User could not be created'), 401    
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
