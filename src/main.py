@@ -63,9 +63,10 @@ def login():
     if user is None:
         return jsonify("Invalid email or password"), 401
     ret = {
-        'jwt': create_jwt(identity=user.id),
-        'business_id': user.id
+        'jwt': create_jwt(identity=user.username)
     }      
+
+    return jsonify(ret), 200
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
