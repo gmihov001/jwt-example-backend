@@ -54,7 +54,10 @@ def post_user():
     else:
         return jsonify('User could not be created'), 401    
 
-@app.route('/login', methods=['POST'])        
+@app.route('/login', methods=['POST'])
+def login():
+    credentials = request.json
+            
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
