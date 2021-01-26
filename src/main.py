@@ -57,7 +57,9 @@ def post_user():
 @app.route('/login', methods=['POST'])
 def login():
     credentials = request.json
-            
+    email = credentials.get('email', None)
+    password = credentials.get('password', None)
+    user = User.query.filter_by(email=email, password=password).first()        
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
