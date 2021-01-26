@@ -59,7 +59,10 @@ def login():
     credentials = request.json
     email = credentials.get('email', None)
     password = credentials.get('password', None)
-    user = User.query.filter_by(email=email, password=password).first()        
+    user = User.query.filter_by(email=email, password=password).first()      
+    if user is None:
+        return jsonify("Invalid email or password"), 401
+          
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
