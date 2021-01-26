@@ -50,9 +50,11 @@ def post_user():
     db.session.commit()
     added = User.query.filter_by(email=body['email'])
     if added:
-        return jsonify(f'User {body['username']} was created'), 200
+        return jsonify(f"User {body['username']} was created"), 200
     else:
         return jsonify('User could not be created'), 401    
+
+@app.route('/login', methods=['POST'])        
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
