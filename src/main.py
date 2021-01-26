@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-import os
+import os, json
 from flask import Flask, request, jsonify, url_for
 from flask_migrate import Migrate
 from flask_swagger import swagger
@@ -39,12 +39,13 @@ def sitemap():
 @app.route('/user', methods=['GET'])
 def handle_hello():
     table = User.query.all()
-    
-    response_body = {
-        "msg": "Hello, this is your GET /user response "
-    }
+    table = list(map(lambda x: x.serialize(), table))
+    return jsonify(table), 200
 
-    return jsonify(response_body), 200
+@app.route('/user', methods=['POST'])
+def post_user():
+    body = request.json
+    new_user = User(username=body['username'], email=body['email'], password=['password'], is_active=False)    
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
