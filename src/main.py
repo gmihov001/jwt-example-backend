@@ -9,9 +9,10 @@ from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import db, User
-from flask_jwt_simple import (
-    JWTManager, jwt_required, create_jwt, get_jwt_identity
-)
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
 #install flask-jwt-simple for import to work
 
 app = Flask(__name__)
@@ -62,11 +63,9 @@ def login():
     user = User.query.filter_by(email=email, password=password).first()      
     if user is None:
         return jsonify("Invalid email or password"), 401
-    ret = {
-        'jwt': create_jwt(identity=user.username)
-    }      
 
-    return jsonify(ret), 200
+    access_token = create_access_token(identity=username)
+    return jsonify(access_token), 200
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
