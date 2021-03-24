@@ -13,7 +13,7 @@ from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
 from flask_jwt_extended import JWTManager
-#install flask-jwt-simple for import to work
+
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
@@ -64,7 +64,7 @@ def login():
     if user is None:
         return jsonify("Invalid email or password"), 401
 
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=email)
     return jsonify(access_token), 200
 
 # this only runs if `$ python src/main.py` is executed
