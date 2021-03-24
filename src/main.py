@@ -72,10 +72,10 @@ def login():
 
 @app.route('/funnyword', methods=['POST'])
 @jwt_required()
-def post_user():
+def funny_word():
     body = request.json
     
-    return jsonify('Word saved'), 401        
+    return jsonify('Word saved'), 200      
 
 @app.route("/protected", methods=["GET"])
 @jwt_required()
