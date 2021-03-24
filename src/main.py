@@ -65,7 +65,7 @@ def login():
         return jsonify("Invalid email or password"), 401
 
     expires = datetime.timedelta(days=7)
-    access_token = create_access_token(identity=email)
+    access_token = create_access_token(identity=email, expires_delta=expires)
     return jsonify(access_token), 200
 
 @app.route("/protected", methods=["GET"])
