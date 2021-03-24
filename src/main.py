@@ -75,7 +75,7 @@ def login():
 def funny_word():
     body = request.json
     
-    return jsonify('Word saved'), 200      
+    return jsonify({'Word saved': body["funnyword"] }), 200      
 
 @app.route("/protected", methods=["GET"])
 @jwt_required()
