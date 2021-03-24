@@ -67,7 +67,15 @@ def login():
 
     expires = datetime.timedelta(days=7)
     access_token = create_access_token(identity=email, expires_delta=expires)
+    
     return jsonify(access_token), 200
+
+@app.route('/funnyword', methods=['POST'])
+@jwt_required()
+def post_user():
+    body = request.json
+    
+    return jsonify('Word saved'), 401        
 
 @app.route("/protected", methods=["GET"])
 @jwt_required()
