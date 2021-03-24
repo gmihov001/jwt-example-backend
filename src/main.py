@@ -64,6 +64,7 @@ def login():
     if user is None:
         return jsonify("Invalid email or password"), 401
 
+    expires = datetime.timedelta(days=7)
     access_token = create_access_token(identity=email)
     return jsonify(access_token), 200
 
